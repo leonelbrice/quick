@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% include 'chapitre.html' %}
+<form class="col-md-6 col-md-offset-3 text-center" action="{% url 'del_chap' %}" method="get" accept-charset="utf-8">
+    <div class="form-group">
+      <label for="searchForm">supprimer un  element</label>
+      <input id="searchForm" class="form-control" name="supprime">
+    </div>
+</form>
+{% endblock %}

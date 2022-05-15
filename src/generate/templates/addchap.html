@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'chapitre.html' %}
+    <form method="post">
+        {% csrf_token %}
+        <center>
+            <h3>Ajouter un chapitre </h3>
+            {{ form.as_p }}
+            {{message}}
+        <button type="submit"> Ajouter </button>
+        </center>
+    </form>
+{% endblock %}
