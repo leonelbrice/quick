@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Liste de Classes</h1>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Classe</th>
+                        <th>Unite</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ass in assign %}
+                    <tr>
+                        <td>{{ ass.classe.id }}</td>
+                        <td>{{ ass.ue.id }}</td>
+                        <td>
+                            {% if choice == 1 %}
+                            <a class="btn btn-primary" href="{% url 'edit_att' ass.ue.id %}" role="button">faire l'appel</a>
+                            <a class="btn btn-warning" href="">Extra Class</a>
+                            <a class="btn btn-danger" href="">View Students</a> {% elif choice == 2 %}
+                            <a class="btn btn-primary" href="" role="button">Enter Marks</a>
+                            <a class="btn btn-danger" href="">View Students</a> {% elif choice == 3 %}
+                            <a class="btn btn-danger" href="">Generate reports</a> {% endif %}
+
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <p>vous n'avez aucune Unite enseignement</p>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endblock %}

@@ -1,0 +1,57 @@
+<!--on etend le gabarit parent-->
+{% extends 'base.html'%} {% block div %}
+<div class="input-group">
+    <form action="{% url 'partie' id_chapitre=id_chap %}" method="get" class="input-group">
+        <input type="text" placeholder="rechercher une partie" class="form-control" name="query">
+        <div class="input-group-append">
+            <button type="submit" class="button btn" style="color:white;background-color: burlywood;">
+              <i class="fas fa-search">
+                  search
+              </i>
+          </button>
+        </div>
+    </form>
+</div>
+
+
+{% endblock%}
+<!--on definit le bloc qui va etre afficher dans le gabarit parent-->
+{% block content %}
+<h1 class="text-center">Partie</h1>
+<div class="container" style="margin-left:70px;">
+    <div class="box">
+        <a class="btn btn-success" href="{% url 'add_partie' id_chap %}">
+            <i class="fas fa-plus"></i>Ajouter</a>
+        <div class="col-lg-12 text-right">
+            <!--on inclut le gabarit base2.html-->
+            <!--on active la lecture de la variable static-->
+            {% load static %}
+            <!-- on verifie si la queryset est vide -->
+            {% if partie|length_is:"0" %}
+            <!--on verifie si la variable query n'etait pas vide au moment de l'envoi du formulaire-->
+            <!--si il n'est pas vide alors une requete a ete saisie et n'a pas donne de reponse positive-->
+
+            {% if query %}
+            <h1 class="text-align-center">cette partie est introuvable</h1>
+            <!--sinon  on affiche au users que cette pqrtie ne possede pas de partie pour le moment-->
+            {% else %}
+            <h1 class="text-align-center">ce chapitre ne possede aucune partie</h1>
+
+            {% endif %}
+            <!--dans le cas ou la queryset n'est pas vide on affiche son contenue-->
+            {% else %}
+            <div class=" row ">
+                {% for i in partie %}
+                <div class="card m-l-3 " style="width: 18rem; ">
+                    <a href="{% url 'questionnaire' liste=i.id %} ">
+                        <img src="{% static 'generate/images/4735.jpg' %} " class="card-img-top img-responsive " alt="... ">
+                    </a>
+                    <div class="card-body ">
+                        <h5 class="card-title ">{{i}}</h5>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endblock %}

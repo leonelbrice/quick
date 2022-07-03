@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %} {% for exercice in all_exercice %}
+<ul style="list-style:none;">
+    <li>
+        {{exercice.nom_exercice}}
+        <a class="btn btn-danger" href="{% url 'generate' exercice.id %}">
+            download
+        </a>
+    </li>
+</ul>
+{% endfor%} {% endblock %}

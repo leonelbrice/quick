@@ -1,0 +1,100 @@
+{% extends 'base.html' %} {% load static %} {% block div %}
+<div class="input-group">
+    <form action="{% url 'chapitre' %}" method="get" class="input-group">
+        <input type="text" placeholder="rechercher un chapitre" class="form-control" name="query">
+        <div class="input-group-append">
+            <button type="submit" class="button btn" style="color:white;background-color: burlywood;">
+              <i class="fas fa-search">
+                  search
+              </i>
+          </button>
+        </div>
+    </form>
+</div>
+{% endblock%} {% block content %}
+<h1 class="text-center">Chapitre</h1>
+<div class="container-fluid">
+    <div class="box">
+        <a class="btn btn-success" href="{% url 'add_chap' %}">
+            <i class="fas fa-plus"></i>Ajouter</a>
+        <div class="col-lg-12 text-right">
+            <div class="row">
+                {% if chapitre|length_is:"0" %}
+                <!--on verifie si la variable query n'etait pas vide au moment de l'envoi du formulaire-->
+                <!--si il n'est pas vide alors une requete a ete saisie et n'a pas donne de reponse positive-->
+                <h2 class="text-align-center">chapitre introuvable</h2>
+
+                <!--sinon  on affiche au users que cette pqrtie ne possede pas de partie pour le moment-->
+                {% else %}
+                <div class="container">
+                    <div class="row">
+                        {% for i in chapitre %} {% for chap in i %}
+                        <div class="card col-md-3 m-lg-3" style="width: 18rem;">
+                            <a href="{% url 'partie' id_chapitre=chap.id %}">
+                                    {% if chap.image.url %}
+                                          <img src="{{chap.image.url}}" class="card-img-top" alt=""/>
+                                    {% else %}
+                                          <img src="{% static 'generate/images/4735.jpg' %}" class="card-img-top" alt=""/>      
+                                    {% endif%}
+                                    
+                              </a>
+                            <div class="card-body">
+                                <a class="btn btn-success" style="margin-right:3px;" href="#" data-toggle="modal" data-target="#supprimer">delete</a>
+                                <a class="btn btn-success" href="{% url 'modif_chap' modif=chap.id %}">
+                                          modifier
+                                    </a>
+                                <h5 class="card-title">{{chap.nom_chapitre}}</h5>
+                                <p class="card-text" id="#texte"> {{chap.desc|truncatewords:15}}</p>
+
+                            </div>
+
+                        </div>
+                        {% if forloop.counter|divisibleby:6%}
+                        <div class="clearfix"></div>
+                        {% endif %}
+                        <div class="modal fade" id="supprimer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">voulez vous vraiment supprimer ce chapitre?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">×</span>
+                                                </button>
+                                    </div>
+                                    <div class="modal-body"> Cliquez sur okay pour supprimer</div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                        <a class="btn btn-primary" href="{% url 'del_chap' sup=chap.id %}">Okay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %} {% endfor %}
+                    </div>
+                </div>
+                {% if paginate %}
+                <div class="clearfix"></div>
+                <nav aria-label="">
+                    <ul class="pager justify-content-center">
+                        {% if chapitre.has_previous %}
+                        <a href="?page={{ chapitre.previous_page_number }}" class="btn btn-outline-primary">
+                                                      Précédent
+                                                    </a> {% endif %} {% if chapitre.has_next %}
+                        <a href="?page={{ chapitre.next_page_number }}" class="btn btn-outline-primary">
+                                                          Suivant
+                                                    </a> {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endif %}
+<script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+{% endblock %}

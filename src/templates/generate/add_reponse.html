@@ -1,0 +1,78 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrire</title>
+    <link href="{% static 'info/homepage/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'info/homepage/css/heroic-features.css' %}" rel="stylesheet">
+    <link href="{% static 'info/bootstrap/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="{% url 'index' %}">QuickExam</a>
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row text-center justify-content-center">
+            <div class="row justify-content-center">
+                <div class="">
+                    <span class="anchor" id="formUserEdit"><br></span>
+                    <div class="card card-outline-secondary" style="min-width: 500px;">
+                        <div class="card-header">
+                            <h3 class="mb-0">Ajouter une reponse</h3>
+                        </div>
+                        {{message}}
+                        <div class="card-body">
+                            <form class="form" role="form" method="POST" action="{% url 'add_reponse' question_id %}">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label form-control-label">Valeur</label>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" name="valeur" type="textarea" cols="30" rows="10" required>
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label form-control-label">Validite</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="state" required>
+                                        <option value="True">
+                                            correcte
+                                        </option value="False">
+                                            erronee
+                                        </option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row justify-content-left">
+                                    <div class="ml-auto mr-3">
+                                        <a class="btn btn-danger" href="{% url 'index' %}"> Cancel </a>
+                                        <input class="btn btn-secondary ml-auto" type="reset" value="Reset">
+                                        <input class="btn btn-primary ml-auto" type="submit" value="Submit">
+                                    </div>
+                                </div>
+                            </form>
+</body>
+
+</html>

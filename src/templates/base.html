@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Chapitre</title>
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <nav class="navbar navbar-expand-md navbar-light row bg-dark">
+        <div class="font-weight-bold text-uppercase ">
+            <a class="px-2 text-success h1" href="#">QuickGame</a>
+        </div>
+        <div class="navbar-collapse text-right">
+            <div class="navbar-collapse justify-content-between" style="margin-left: 160px ;" id="nav">
+                <ul class="navbar-nav col-md-9">
+                    <li class="nav-item">
+                        {% block div %} {% endblock %}
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="#" data-toggle="modal" data-target="#logoutModal">
+                                Logout</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+</header>
+
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    {% if request.user.teacher %}
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">
+                                <span data-feather="home"></span> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="file"></span>UE
+                            </a>
+                        </li>
+                    </ul>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Bibliotheque</span>
+                        <a class="link-secondary" href="#" aria-label="Add a new report">
+                            <span data-feather="plus-circle"></span>
+                        </a>
+                    </h6>
+                    <a href="{% url 'chapitre' %}" class="sidebar-heading d-flex justify-content-between 
+                    align-items-center px-3 mt-4 mb-1 text-muted">
+                    Chapitre
+                 </a>
+                    <a href="" class="sidebar-heading d-flex justify-content-between 
+                 align-items-center px-3 mt-4 mb-1 text-muted">
+                 Partie
+              </a>
+                    <a href="" class="sidebar-heading d-flex justify-content-between 
+                        align-items-center px-3 mt-4 mb-1 text-muted">
+                        Question
+                     </a>
+                    <a href="{% url 'chapitre' %}" class="sidebar-heading d-flex justify-content-between 
+                     align-items-center px-3 mt-4 mb-1 text-muted">
+                     generate
+                  </a>
+                    <a href="{% url 'exercice' %}" class="sidebar-heading d-flex justify-content-between 
+                  align-items-center px-3 mt-4 mb-1 text-muted">
+                creer une epreuve
+                <a class="btn btn-danger" href="{% url 'download' %}">download</a>
+                    </a>
+                </div>
+                {% endif %}
+            </nav>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <header class="jumbotron my-4">
+                        <h1 class="display-2 text-capitalize text-dark">Hi, {{ request.user.teacher.name }}</h1>
+                    </header>
+                </div>
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <!-- MDB -->
+    <script src="{% static '/info/homepage/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/info/homepage/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Souhaitez vous quittez?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+            </div>
+            <div class="modal-body">Appuyez sur Deconnexion pour quitter la session en cours</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="{% url 'logout' %}">Deconnexion</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

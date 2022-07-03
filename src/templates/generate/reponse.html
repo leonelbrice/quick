@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %} {% load static %} {% block content %}
+<meta charset="UTF-8" />
+
+<title></title>
+<!-- MDB icon -->
+<link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<!-- Google Fonts Roboto -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+<!-- MDB -->
+<link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+
+<div>
+    <h1 class="text-center">Reponse</h1>
+    {% comment %}
+    <!-- <a href="{% url 'ajout_question' partie_id=partie_id %}" class="btn btn-danger text-right">
+        <i class="fas fa-plus"></i>Ajouter</a> -->{% endcomment %}
+    <a class="btn btn-success " href="{% url 'add_reponse' question_id %}">
+        <i class="fas fa-plus"></i>Ajouter</a>
+    <div class="col-lg-12 text-right">
+        <div class="card container-md">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <h3>valeur</h3>
+                            </th>
+                            <th>
+                                <h3>Statut</h3>
+                            </th>
+                            <th>
+                                <h3>Action</h3>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reponse in all_reponse %}
+                        <tr>
+                            <td> <a href="#" class="h5">
+                          {{ reponse.valeur|truncatewords:20}}
+                            </a>
+                            </td>
+
+                            <td>
+                                {{ reponse.state }}
+                            </td>
+                            <td>
+                                <a href="" class="btn btn-info"><i class="fas fa-edit"></i>modifier</a>
+                                <a href="{% url 'del_reponse' reponse.id %}" class="btn btn-info"><i class="fas fa-trash"></i>supprimer</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- MDB -->
+    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <!-- Custom scripts -->
+    <script type="text/javascript"></script>
+    {% endblock %}

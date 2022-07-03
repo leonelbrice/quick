@@ -1,0 +1,141 @@
+{% extends 'base.html' %} {% load static %}{% block content %}
+<div class="container">
+    <div class="row text-center justify-content-center">
+        <div class="row justify-content-center">
+            <div class="">
+                <span class="anchor" id="formUserEdit"><br></span>
+                <div class="card card-outline-secondary" style="min-width: 500px;">
+                    <div class="card-header">
+                        <h3 class="mb-0">Creer une nouvel exercice</h3>
+                    </div>
+                    <div class="card-body">
+                        <form class="form" id="form-post" role="form" method="POST" action="{% url 'exercice' %}">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Nom de l'exercice</label>
+                                <div class="col-lg-9">
+                                    <input type="text" name="nom" class="form-control" required>
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label form-control-label">UNITE</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" name="ue" id="ue" required>
+                                        {% for as in assc %}
+                                        <option value="{{ as.course.id}}">
+                                            {{as.course.id}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label form-control-label">Chapitre</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" name="chapitre" id="chapitre" style="list-style:none;">
+                                        <script type="text/javascript">
+                                            var select1=document.querySelector('select');
+                                            select1.addEventListener('click',affiche);
+                                            function affiche()
+                                            {
+                                                $.ajax({
+                                                    type: 'GET',
+                                                    url: "{% url 'form_all' %}",
+                                                    dataType: "json",
+                                                    success: function(response) {
+                                                        $("#chapitre").empty();
+                                                        for (key in response.chapitre) {
+                                                        var temp = "<option value=" + response.chapitre[key].id +" >"+ response.chapitre[key].nom_chapitre + "</option>";
+                                                            if (response.chapitre[key].ue_id == $("#ue").val()) {
+                                                                $("#chapitre").append(temp);
+                                                            }
+                
+                                                        }
+                
+                                                    }
+                                                })  
+                                            }
+
+                                        </script>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label form-control-label">Partie</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" name="partie" id="partie" style="list-style:none;">
+                                        <script type="text/javascript">
+                                            var select1=document.querySelector('select');
+                                            select1.addEventListener('click',affiche_partie);
+                                            function affiche_partie()
+                                            {
+                                                $.ajax({
+                                                    type: 'GET',
+                                                    url: "{% url 'form_all' %}",
+                                                    dataType: "json",
+                                                    success: function(response) {
+                                                        $("#partie").empty();
+                                                        partie=response.partie;
+                                                        for (key in partie) {
+                                                            var temp = "<option value=" + partie[key].id +">"+ partie[key].nom + "</option>";                        
+                                                                if (partie[key].chapitre_id == $("#chapitre").val()) 
+                                                                {
+                                                                    
+                                                                    $("#partie").append(temp);
+                                                                    partie.delete(partie[key]);
+
+                                                            }
+                                                        }
+                
+                                                    }
+                                                })  
+                                            }
+
+                                        </script>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Type de question</label>
+                                <div class="col-lg-9">
+                                    <select name="type_question" class="form-control" required>
+                                        <option value="QCM">QCM</option>
+                                        <option value="QRO">QRO</option>
+                                        <option value="Question_trou">Question a trou</option>
+                                        <option value="VRAI/FAUX">VRAI/FAUX</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Niveau de la question</label>
+                                <div class="col-lg-9">
+                                    <select name="level_question" class="form-control" required>
+                                        <option value="facile">Facile</option>
+                                        <option value="moyen">Moyen</option>
+                                        <option value="difficile">Difficile</option>
+                                    </select>
+                                </div>
+
+
+
+                            </div>
+                            <div class="form-group row justify-content-left">
+                                <div class="ml-auto mr-3">
+                                    <a class="btn btn-danger" href="{% url 'index' %}"> Cancel </a>
+                                    <input class="btn btn-secondary ml-auto" type="reset" value="Reset">
+                                    <input class="btn btn-primary ml-auto" type="submit" value="Submit">
+
+                                </div>
+                            </div>
+                        </form>
+                        <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+
+
+                        {% endblock %}

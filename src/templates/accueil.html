@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GENERATION D'EPREUVE</title>
+    <meta charset="utf-8"> {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+
+</head>
+
+<body>
+    <div class="box">
+        <H1>QUICKEXAM</H1>
+        <hr>
+        <p>Bienvenue sur notre application de Génération d'epreuve</p>
+        <p>Destinez a vous faire gagner du temps </p>
+        <a href="{% url 'userLogin' %}">
+            <button class="button">Tenter l'expérience</button>
+        </a>
+    </div>
+
+</body>
+
+</html>

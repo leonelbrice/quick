@@ -1,0 +1,90 @@
+body{
+    background: url(passing-their-exams.jpg);
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    background-position: (50%);
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: fantasy;
+}
+.box{
+    margin-top: 10%;
+    background: transparent;
+    position: relative;
+    justify-content: center;
+    width: 400px;
+    height: 400px;
+    border: 3px solid #fff;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-weight: bold;
+}
+
+.box::before{
+    content: "";
+    background: #000022;
+    position: absolute;
+    justify-content: center;
+    width: 400px;
+    height: 400px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-weight: bold;
+    z-index: -1;
+    opacity: 0.1;
+
+}
+.box h1{
+    color: #F34213;
+    text-align: center;
+}
+.box p{
+    text-align: center;
+    color: #fff;
+}
+.box button{
+    align-items: center;
+    background: none;
+    width: 250px;
+    height: 60px;
+    margin-left: 20%;
+    border: 4px solid #F24236;
+    font-size: 20px;
+    font-weight: bold;
+    font-weight: bold;
+    border-color: #fff;
+    margin-top: 30px;
+    color: #F24236;
+    transition: .4s linear;
+    position: relative;
+    cursor: pointer;
+   
+}
+.box button:hover{
+    color: #fff;
+}
+
+.box button::before{
+    content: "";
+    position: absolute;
+    background-color: #F24236;
+    width: 0px;
+    height: 55px;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    transition: .2s linear;
+    
+}
+
+.box button:hover::before{
+    width: 245px;
+}
+
+.box a{
+    text-decoration: none;
+    color: none;
+}
